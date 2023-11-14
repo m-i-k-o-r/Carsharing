@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="Create-tables-1" author="Mihail Korolitskiy">
+        <sqlFile path="tables/Objects/create-table-location.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="tables/Objects/create-table-car.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="tables/Objects/create-table-client.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="tables/Objects/create-table-history.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="tables/Objects/create-table-violation.sql" relativeToChangelogFile="true"/>
+
+        <sqlFile path="tables/Datasets/add-data-location.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="tables/Datasets/add-data-car.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="tables/Datasets/add-data-client.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="tables/Datasets/add-data-history.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="tables/Datasets/add-data-violation.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+
+</databaseChangeLog>

@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  postgres:
+    image: 'postgres:13'
+    container_name: 'car-container'
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mypass
+      POSTGRES_DB: carsharing
+    volumes:
+      - ./db-data/:/var/lib/postgresql/data/
+
+
+volumes:
+  postgres-data:
