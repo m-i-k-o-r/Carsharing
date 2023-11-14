@@ -20,7 +20,7 @@ public class ViolationController {
     private final ViolationService violationService;
 
     @GetMapping()
-    @Operation(summary = "get all violations", responses = {
+    @Operation(summary = "Get all violations", responses = {
             @ApiResponse(responseCode = "200", description = "Violations found", content = {
                     @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = ViolationDto.class)))
@@ -35,7 +35,7 @@ public class ViolationController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "get violation by id", responses = {
+    @Operation(summary = "Get violation by id", responses = {
             @ApiResponse(responseCode = "200", description = "Violation found", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ViolationDto.class))
@@ -55,11 +55,7 @@ public class ViolationController {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ViolationDto.class))
             }),
-            @ApiResponse(responseCode = "400", description = "invalid fields to creating", content = {
-                    @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ResponseEntity.class))
-            }),
-            @ApiResponse(responseCode = "500", description = "An error occurred while creating", content = {
+            @ApiResponse(responseCode = "400", description = "Invalid fields to creating", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             })
@@ -77,15 +73,11 @@ public class ViolationController {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ViolationDto.class))
             }),
-            @ApiResponse(responseCode = "400", description = "invalid fields to updating", content = {
+            @ApiResponse(responseCode = "400", description = "Invalid fields to updating", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             }),
             @ApiResponse(responseCode = "404", description = "No violation found to updating", content = {
-                    @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ResponseEntity.class))
-            }),
-            @ApiResponse(responseCode = "500", description = "An error occurred while updating", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             })

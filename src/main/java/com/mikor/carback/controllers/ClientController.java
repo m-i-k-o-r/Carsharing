@@ -55,11 +55,11 @@ public class ClientController {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ClientDto.class))
             }),
-            @ApiResponse(responseCode = "400", description = "invalid fields to creating", content = {
+            @ApiResponse(responseCode = "400", description = "Invalid fields for creating client", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             }),
-            @ApiResponse(responseCode = "500", description = "An error occurred while creating", content = {
+            @ApiResponse(responseCode = "409", description = "Conflict with an existing client resource", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             })
@@ -77,15 +77,11 @@ public class ClientController {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ClientDto.class))
             }),
-            @ApiResponse(responseCode = "400", description = "invalid fields to updating", content = {
+            @ApiResponse(responseCode = "400", description = "Invalid fields to updating client", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             }),
-            @ApiResponse(responseCode = "404", description = "No client found to updating", content = {
-                    @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ResponseEntity.class))
-            }),
-            @ApiResponse(responseCode = "500", description = "An error occurred while updating", content = {
+            @ApiResponse(responseCode = "404", description = "No client found to updating client", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             })
@@ -104,15 +100,11 @@ public class ClientController {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ClientDto.class))
             }),
-            @ApiResponse(responseCode = "400", description = "invalid fields to updating", content = {
+            @ApiResponse(responseCode = "400", description = "Invalid fields to updating client", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             }),
-            @ApiResponse(responseCode = "404", description = "No client found to updating", content = {
-                    @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ResponseEntity.class))
-            }),
-            @ApiResponse(responseCode = "500", description = "An error occurred while updating", content = {
+            @ApiResponse(responseCode = "404", description = "No client found to updating client", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             })
@@ -120,6 +112,26 @@ public class ClientController {
     public void addHistoryClientById(@PathVariable Long id,
                                      @RequestParam("historyId") Long historyId) {
         clientService.addHistoryClient(id, historyId);
+    }
+
+    @PutMapping("/{id}/removeHistory")
+    @Operation(summary = "Remove history client", responses = {
+            @ApiResponse(responseCode = "200", description = "Client delete location", content = {
+                    @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ClientDto.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Invalid fields to updating client", content = {
+                    @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseEntity.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "No client found to updating client", content = {
+                    @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseEntity.class))
+            })
+    })
+    public void removeHistoryById(@PathVariable Long id,
+                                  @RequestParam("historyId") Long historyId) {
+        clientService.removeHistoryClient(id, historyId);
     }
 
     @DeleteMapping("/{id}/delete")

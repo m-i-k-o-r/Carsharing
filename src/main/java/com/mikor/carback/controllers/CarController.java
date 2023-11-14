@@ -25,7 +25,7 @@ public class CarController {
                     @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = CarDto.class)))
             }),
-            @ApiResponse(responseCode = "404", description = "No Cars found", content = {
+            @ApiResponse(responseCode = "404", description = "No cars found", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             })
@@ -40,7 +40,7 @@ public class CarController {
                     @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = CarDto.class)))
             }),
-            @ApiResponse(responseCode = "404", description = "No Car found", content = {
+            @ApiResponse(responseCode = "404", description = "No car found", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             })
@@ -55,11 +55,11 @@ public class CarController {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = CarDto.class))
             }),
-            @ApiResponse(responseCode = "400", description = "invalid fields to creating", content = {
+            @ApiResponse(responseCode = "400", description = "Invalid fields for creating car", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             }),
-            @ApiResponse(responseCode = "500", description = "An error occurred while creating", content = {
+            @ApiResponse(responseCode = "409", description = "Conflict with an existing car resource", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             })
@@ -78,15 +78,11 @@ public class CarController {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = CarDto.class))
             }),
-            @ApiResponse(responseCode = "400", description = "invalid fields to updating", content = {
+            @ApiResponse(responseCode = "400", description = "Invalid fields to updating car", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             }),
             @ApiResponse(responseCode = "404", description = "No car found to updating", content = {
-                    @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ResponseEntity.class))
-            }),
-            @ApiResponse(responseCode = "500", description = "An error occurred while updating", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             })
@@ -100,19 +96,15 @@ public class CarController {
 
     @PutMapping("/{id}/addLocation")
     @Operation(summary = "Add location car", responses = {
-            @ApiResponse(responseCode = "200", description = "Car Add location", content = {
+            @ApiResponse(responseCode = "200", description = "Car add location", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = CarDto.class))
             }),
-            @ApiResponse(responseCode = "400", description = "invalid fields to updating", content = {
+            @ApiResponse(responseCode = "400", description = "Invalid fields to updating car", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             }),
             @ApiResponse(responseCode = "404", description = "No car found to updating", content = {
-                    @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ResponseEntity.class))
-            }),
-            @ApiResponse(responseCode = "500", description = "An error occurred while updating", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             })
@@ -122,24 +114,23 @@ public class CarController {
         carService.addLocationCar(id, locationId);
     }
 
-    @PutMapping("/{id}/deleteLocation")
-    @Operation(summary = "Delete location car", responses = {
-            @ApiResponse(responseCode = "200", description = "Car delete location"),
-            @ApiResponse(responseCode = "400", description = "invalid fields to updating", content = {
+    @PutMapping("/{id}/removeLocation")
+    @Operation(summary = "Remove location car", responses = {
+            @ApiResponse(responseCode = "200", description = "Car remove location", content = {
+                    @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CarDto.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Invalid fields to updating car", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             }),
             @ApiResponse(responseCode = "404", description = "No car found to updating", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
-            }),
-            @ApiResponse(responseCode = "500", description = "An error occurred while updating", content = {
-                    @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ResponseEntity.class))
             })
     })
-    public void deleteLocationById(@PathVariable Long id) {
-        carService.deleteLocationCar(id);
+    public void removeLocationById(@PathVariable Long id) {
+        carService.removeLocationCar(id);
     }
 
     @PutMapping("/{id}/addHistory")
@@ -148,15 +139,11 @@ public class CarController {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = CarDto.class))
             }),
-            @ApiResponse(responseCode = "400", description = "invalid fields to updating", content = {
+            @ApiResponse(responseCode = "400", description = "Invalid fields to updating car", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             }),
             @ApiResponse(responseCode = "404", description = "No car found to updating", content = {
-                    @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ResponseEntity.class))
-            }),
-            @ApiResponse(responseCode = "500", description = "An error occurred while updating", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             })
@@ -164,6 +151,26 @@ public class CarController {
     public void addHistoryCarById(@PathVariable Long id,
                                   @RequestParam("historyId") Long historyId) {
         carService.addHistoryCar(id, historyId);
+    }
+
+    @PutMapping("/{id}/removeHistory")
+    @Operation(summary = "Remove history car", responses = {
+            @ApiResponse(responseCode = "200", description = "Car remove history", content = {
+                    @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CarDto.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Invalid fields to updating car", content = {
+                    @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseEntity.class))
+            }),
+            @ApiResponse(responseCode = "404", description = "No car found to updating", content = {
+                    @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseEntity.class))
+            })
+    })
+    public void removeHistoryById(@PathVariable Long id,
+                                   @RequestParam("historyId") Long historyId) {
+        carService.removeHistoryCar(id, historyId);
     }
 
     @DeleteMapping("/{id}/delete")

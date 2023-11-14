@@ -20,7 +20,7 @@ public class LocationController {
     private final LocationService locationService;
 
     @GetMapping()
-    @Operation(summary = "get all locations", responses = {
+    @Operation(summary = "Get all locations", responses = {
             @ApiResponse(responseCode = "200", description = "Locations found", content = {
                     @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = LocationDto.class)))
@@ -35,7 +35,7 @@ public class LocationController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "get location by id", responses = {
+    @Operation(summary = "Get location by id", responses = {
             @ApiResponse(responseCode = "200", description = "Location found", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = LocationDto.class))
@@ -55,11 +55,7 @@ public class LocationController {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = LocationDto.class))
             }),
-            @ApiResponse(responseCode = "400", description = "invalid fields to creating", content = {
-                    @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ResponseEntity.class))
-            }),
-            @ApiResponse(responseCode = "500", description = "An error occurred while creating", content = {
+            @ApiResponse(responseCode = "400", description = "invalid fields to creating location", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             })
@@ -71,20 +67,16 @@ public class LocationController {
     }
 
     @PutMapping("/{id}/updateLocation")
-    @Operation(summary = "update location", responses = {
+    @Operation(summary = "Update location", responses = {
             @ApiResponse(responseCode = "200", description = "Location update", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = LocationDto.class))
             }),
-            @ApiResponse(responseCode = "400", description = "invalid fields to updating", content = {
+            @ApiResponse(responseCode = "400", description = "Invalid fields to updating location", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             }),
             @ApiResponse(responseCode = "404", description = "No location found to updating", content = {
-                    @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ResponseEntity.class))
-            }),
-            @ApiResponse(responseCode = "500", description = "An error occurred while updating", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             })

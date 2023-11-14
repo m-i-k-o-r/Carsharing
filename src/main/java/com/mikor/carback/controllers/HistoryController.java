@@ -21,7 +21,7 @@ public class HistoryController {
     private final HistoryService historyService;
 
     @GetMapping()
-    @Operation(summary = "get all histories", responses = {
+    @Operation(summary = "Get all histories", responses = {
             @ApiResponse(responseCode = "200", description = "Histories found", content = {
                     @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = HistoryDto.class)))
@@ -36,7 +36,7 @@ public class HistoryController {
     }
 
     @GetMapping("/withEnd")
-    @Operation(summary = "get all histories with have end date", responses = {
+    @Operation(summary = "Get all histories with have end date", responses = {
             @ApiResponse(responseCode = "200", description = "Histories found", content = {
                     @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = HistoryDto.class)))
@@ -51,7 +51,7 @@ public class HistoryController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "get history by id", responses = {
+    @Operation(summary = "Get history by id", responses = {
             @ApiResponse(responseCode = "200", description = "History found", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = HistoryDto.class))
@@ -71,11 +71,11 @@ public class HistoryController {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = HistoryDto.class))
             }),
-            @ApiResponse(responseCode = "400", description = "invalid fields to starting", content = {
+            @ApiResponse(responseCode = "400", description = "Invalid fields to starting history", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             }),
-            @ApiResponse(responseCode = "500", description = "An error occurred while starting", content = {
+            @ApiResponse(responseCode = "409", description = "Conflict with an existing history resource", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             })
@@ -86,20 +86,16 @@ public class HistoryController {
     }
 
     @PutMapping("/{id}/end")
-    @Operation(summary = "completion history", responses = {
+    @Operation(summary = "Completion history", responses = {
             @ApiResponse(responseCode = "200", description = "History completion", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = HistoryDto.class))
             }),
-            @ApiResponse(responseCode = "400", description = "invalid fields to completing", content = {
+            @ApiResponse(responseCode = "400", description = "Invalid fields to completing history", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             }),
             @ApiResponse(responseCode = "404", description = "No history found to completing", content = {
-                    @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ResponseEntity.class))
-            }),
-            @ApiResponse(responseCode = "500", description = "An error occurred while completing", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             })
@@ -109,20 +105,16 @@ public class HistoryController {
     }
 
     @PutMapping("/{id}/addViolation")
-    @Operation(summary = "completion history", responses = {
-            @ApiResponse(responseCode = "200", description = "History completion", content = {
+    @Operation(summary = "Add violation history", responses = {
+            @ApiResponse(responseCode = "200", description = "History add violation", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = HistoryDto.class))
             }),
-            @ApiResponse(responseCode = "400", description = "invalid fields to completing", content = {
+            @ApiResponse(responseCode = "400", description = "Invalid fields to updating history", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             }),
-            @ApiResponse(responseCode = "404", description = "No history found to completing", content = {
-                    @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ResponseEntity.class))
-            }),
-            @ApiResponse(responseCode = "500", description = "An error occurred while completing", content = {
+            @ApiResponse(responseCode = "404", description = "No history found to updating", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             })
@@ -133,20 +125,16 @@ public class HistoryController {
     }
 
     @PutMapping("/{id}/removeViolation")
-    @Operation(summary = "completion history", responses = {
-            @ApiResponse(responseCode = "200", description = "History completion", content = {
+    @Operation(summary = "Remove violation history", responses = {
+            @ApiResponse(responseCode = "200", description = "History remove violation", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = HistoryDto.class))
             }),
-            @ApiResponse(responseCode = "400", description = "invalid fields to completing", content = {
+            @ApiResponse(responseCode = "400", description = "Invalid fields to updating", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             }),
-            @ApiResponse(responseCode = "404", description = "No history found to completing", content = {
-                    @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ResponseEntity.class))
-            }),
-            @ApiResponse(responseCode = "500", description = "An error occurred while completing", content = {
+            @ApiResponse(responseCode = "404", description = "No history found to updating", content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseEntity.class))
             })
