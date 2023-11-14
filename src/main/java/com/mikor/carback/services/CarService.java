@@ -48,7 +48,7 @@ public class CarService {
         carRepository.save(car);
     }
 
-    public void deleteLocationCar(Long id) {
+    public void removeLocationCar(Long id) {
         Car car = carRepository.findById(id).orElseThrow(() -> new NotFoundException("Car with this id not found"));
         car.setLocation(null);
         carRepository.save(car);
@@ -59,6 +59,14 @@ public class CarService {
         Set<History> histories = car.getHistories();
         histories.add(historyRepository.findById(historyId).orElseThrow(() -> new NotFoundException("History with this id not found")));
         car.setHistories(histories);
+        carRepository.save(car);
+    }
+
+    public void removeHistoryCar(Long id, Long historyId) {
+        Car car = carRepository.findById(id).orElseThrow(() -> new NotFoundException("Car with this id not found"));
+        History history = historyRepository.findById(historyId).orElseThrow(() -> new NotFoundException("History with this id not found"));
+        car.getHistories().remove(history);
+        historyRepository.delete(history);
         carRepository.save(car);
     }
 

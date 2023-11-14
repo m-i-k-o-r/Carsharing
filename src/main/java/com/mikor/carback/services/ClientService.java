@@ -3,6 +3,7 @@ package com.mikor.carback.services;
 import com.mikor.carback.data.dto.ClientDto;
 import com.mikor.carback.data.mappers.ClientMapper;
 import com.mikor.carback.exceptions.NotFoundException;
+import com.mikor.carback.models.Car;
 import com.mikor.carback.models.Client;
 import com.mikor.carback.models.History;
 import com.mikor.carback.repos.ClientRepository;
@@ -43,6 +44,14 @@ public class ClientService {
         Set<History> histories = client.getHistories();
         histories.add(historyRepository.findById(historyId).orElseThrow(() -> new NotFoundException("History with this id not found")));
         client.setHistories(histories);
+        clientRepository.save(client);
+    }
+
+    public void removeHistoryClient(Long id, Long historyId) {
+        Client client = clientRepository.findById(id).orElseThrow(() -> new NotFoundException("Client with this id not found"));
+        History history = historyRepository.findById(historyId).orElseThrow(() -> new NotFoundException("History with this id not found"));
+        client.getHistories().remove(history);
+        historyRepository.delete(history);
         clientRepository.save(client);
     }
 
