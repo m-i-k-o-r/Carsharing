@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/history")
 @RequiredArgsConstructor
+@RequestMapping("/history")
+@CrossOrigin("http://localhost:5173/")
 public class HistoryController {
     private final HistoryService historyService;
 
@@ -48,6 +49,21 @@ public class HistoryController {
     })
     public List<HistoryDto> getAllHistoriesWithEnd() {
         return historyService.getAllEndDateHistory();
+    }
+
+    @GetMapping("/byClient/{clientId}")
+    @Operation(summary = "Get all histories with one client", responses = {
+            @ApiResponse(responseCode = "200", description = "Histories found", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = HistoryDto.class)))
+            }),
+            @ApiResponse(responseCode = "404", description = "No histories found", content = {
+                    @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseEntity.class))
+            })
+    })
+    public List<HistoryDto> getHistoriesByClientId(@PathVariable Long clientId) {
+        return historyService.getHistoriesByClientId(clientId);
     }
 
     @GetMapping("/{id}")

@@ -66,6 +66,15 @@ public class HistoryService {
         return HistoryMapper.INSTANCE.toDto(historyRepository.findAll());
     }
 
+    public List<HistoryDto> getHistoriesByClientId(Long clientId) {
+        List<History> listAllHistory = historyRepository.findAll();
+        List<History> listFindHistory = new ArrayList<>();
+        for (History h : listAllHistory) {
+            if (h.getClient().getId() == clientId) listFindHistory.add(h);
+        }
+        return HistoryMapper.INSTANCE.toDto(listFindHistory);
+    }
+
     public List<HistoryDto> getAllEndDateHistory() {
         List<History> listAllHistory = historyRepository.findAll();
         List<History> listAllEndHistory = new ArrayList<>();
