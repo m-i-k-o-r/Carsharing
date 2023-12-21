@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface ClientMapper {
 
-    ClientMapper INSTANCE  = Mappers.getMapper(ClientMapper.class);
+    ClientMapper INSTANCE = Mappers.getMapper(ClientMapper.class);
 
     ClientDto toDto(Client client);
 

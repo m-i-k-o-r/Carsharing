@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface ViolationMapper {
 
-    ViolationMapper INSTANCE  = Mappers.getMapper(ViolationMapper.class);
+    ViolationMapper INSTANCE = Mappers.getMapper(ViolationMapper.class);
 
     ViolationDto toDto(Violation violation);
 

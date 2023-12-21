@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface LocationMapper {
 
-    LocationMapper INSTANCE  = Mappers.getMapper(LocationMapper.class);
+    LocationMapper INSTANCE = Mappers.getMapper(LocationMapper.class);
 
     LocationDto toDto(Location location);
 
