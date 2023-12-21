@@ -1,9 +1,11 @@
 package com.mikor.carback.services;
 
 import com.mikor.carback.data.dto.ClientDto;
+import com.mikor.carback.data.forms.client.CreateClientForm;
+import com.mikor.carback.data.forms.client.HistoryClientForm;
+import com.mikor.carback.data.forms.client.UpdateClientFrom;
 import com.mikor.carback.data.mappers.ClientMapper;
 import com.mikor.carback.exceptions.NotFoundException;
-import com.mikor.carback.models.Car;
 import com.mikor.carback.models.Client;
 import com.mikor.carback.models.History;
 import com.mikor.carback.repos.ClientRepository;
@@ -20,39 +22,43 @@ public class ClientService {
     private final ClientRepository clientRepository;
     private final HistoryRepository historyRepository;
 
-    public ClientDto createClient(String name, Long passportData, Long cartNumber, Long phoneNumber) {
+    public ClientDto createClient(CreateClientForm form) {
         return ClientMapper.INSTANCE.toDto(clientRepository.save(Client.builder()
-                .name(name)
-                .passportData(passportData)
-                .cardNumber(cartNumber)
-                .phoneNumber(phoneNumber)
+                .name(form.getName())
+                .passportData(form.getPassportData())
+                .cardNumber(form.getCartNumber())
+                .phoneNumber(form.getPhoneNumber())
+                .password(form.getPassword())
                 .build()));
     }
 
-    public ClientDto updateClient(Long id, String name, Long passportData, Long cartNumber, Long phoneNumber) {
+    public ClientDto updateClient(Long id, UpdateClientFrom form) {
         Client client = clientRepository.findById(id).orElseThrow(() -> new NotFoundException("Client with this id not found"));
-        client.setName(name);
-        client.setPassportData(passportData);
-        client.setCardNumber(cartNumber);
-        client.setPhoneNumber(phoneNumber);
+        client.setName(form.getName());
+        client.setPassportData(form.getPassportData());
+        client.setCardNumber(form.getCartNumber());
+        client.setPhoneNumber(form.getPhoneNumber());
+        client.setPassword(form.getPassword());
         client = clientRepository.save(client);
         return ClientMapper.INSTANCE.toDto(client);
     }
 
-    public void addHistoryClient(Long id, Long historyId) {
+    public ClientDto addHistoryClient(Long id, HistoryClientForm form) {
         Client client = clientRepository.findById(id).orElseThrow(() -> new NotFoundException("Client with this id not found"));
         Set<History> histories = client.getHistories();
-        histories.add(historyRepository.findById(historyId).orElseThrow(() -> new NotFoundException("History with this id not found")));
+        histories.add(historyRepository.findById(form.getHistoryId()).orElseThrow(() -> new NotFoundException("History with this id not found")));
         client.setHistories(histories);
         clientRepository.save(client);
+        return ClientMapper.INSTANCE.toDto(client);
     }
 
-    public void removeHistoryClient(Long id, Long historyId) {
+    public ClientDto removeHistoryClient(Long id, HistoryClientForm form) {
         Client client = clientRepository.findById(id).orElseThrow(() -> new NotFoundException("Client with this id not found"));
-        History history = historyRepository.findById(historyId).orElseThrow(() -> new NotFoundException("History with this id not found"));
+        History history = historyRepository.findById(form.getHistoryId()).orElseThrow(() -> new NotFoundException("History with this id not found"));
         client.getHistories().remove(history);
         historyRepository.delete(history);
         clientRepository.save(client);
+        return ClientMapper.INSTANCE.toDto(client);
     }
 
     public ClientDto getClient(Long id) {

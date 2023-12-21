@@ -1,6 +1,9 @@
 package com.mikor.carback.services;
 
 import com.mikor.carback.data.dto.CarDto;
+import com.mikor.carback.data.forms.car.CreateCarForm;
+import com.mikor.carback.data.forms.car.LocationCarForm;
+import com.mikor.carback.data.forms.car.UpdateCarForm;
 import com.mikor.carback.data.mappers.CarMapper;
 import com.mikor.carback.exceptions.NotFoundException;
 import com.mikor.carback.models.Car;
@@ -22,52 +25,56 @@ public class CarService {
     private final LocationRepository locationRepository;
     private final HistoryRepository historyRepository;
 
-    public CarDto createCar(String name, int year, String number, String color, double rentalPrice) {
+    public CarDto createCar(CreateCarForm form) {
         return CarMapper.INSTANCE.toDto(carRepository.save(Car.builder()
-                .name(name)
-                .year(year)
-                .number(number)
-                .color(color)
-                .rentalPrice(rentalPrice)
+                .name(form.getName())
+                .year(form.getYear())
+                .number(form.getNumber())
+                .color(form.getColor())
+                .rentalPrice(form.getRentalPrice())
                 .build()));
     }
 
-    public CarDto updateCar(Long id, String number, String color, double rentalPrice) {
+    public CarDto updateCar(Long id, UpdateCarForm form) {
         Car car = carRepository.findById(id).orElseThrow(() -> new NotFoundException("Car with this id not found"));
-        car.setNumber(number);
-        car.setColor(color);
-        car.setRentalPrice(rentalPrice);
+        car.setNumber(form.getNumber());
+        car.setColor(form.getColor());
+        car.setRentalPrice(form.getRentalPrice());
         car = carRepository.save(car);
         return CarMapper.INSTANCE.toDto(car);
     }
 
-    public void addLocationCar(Long id, Long locationId) {
-        Location location = locationRepository.findById(locationId).orElseThrow(() -> new NotFoundException("Location with this id not found"));
+    public CarDto addLocationCar(Long id, LocationCarForm form) {
+        Location location = locationRepository.findById(form.getLocationId()).orElseThrow(() -> new NotFoundException("Location with this id not found"));
         Car car = carRepository.findById(id).orElseThrow(() -> new NotFoundException("Car with this id not found"));
         car.setLocation(location);
         carRepository.save(car);
+        return CarMapper.INSTANCE.toDto(car);
     }
 
-    public void removeLocationCar(Long id) {
+    public CarDto removeLocationCar(Long id) {
         Car car = carRepository.findById(id).orElseThrow(() -> new NotFoundException("Car with this id not found"));
         car.setLocation(null);
         carRepository.save(car);
+        return CarMapper.INSTANCE.toDto(car);
     }
 
-    public void addHistoryCar(Long id, Long historyId) {
+    public CarDto addHistoryCar(Long id, Long historyId) {
         Car car = carRepository.findById(id).orElseThrow(() -> new NotFoundException("Car with this id not found"));
         Set<History> histories = car.getHistories();
         histories.add(historyRepository.findById(historyId).orElseThrow(() -> new NotFoundException("History with this id not found")));
         car.setHistories(histories);
         carRepository.save(car);
+        return CarMapper.INSTANCE.toDto(car);
     }
 
-    public void removeHistoryCar(Long id, Long historyId) {
+    public CarDto removeHistoryCar(Long id, Long historyId) {
         Car car = carRepository.findById(id).orElseThrow(() -> new NotFoundException("Car with this id not found"));
         History history = historyRepository.findById(historyId).orElseThrow(() -> new NotFoundException("History with this id not found"));
         car.getHistories().remove(history);
         historyRepository.delete(history);
         carRepository.save(car);
+        return CarMapper.INSTANCE.toDto(car);
     }
 
     public CarDto getCar(Long id) {
