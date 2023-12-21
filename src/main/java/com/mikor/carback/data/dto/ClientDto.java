@@ -38,5 +38,9 @@ public class ClientDto {
     @NotNull(message = "Invalid Phone Number: Phone Number is NULL")
     private Long phoneNumber;
 
+    @NotBlank(message = "Name is required")
+    @NotNull(message = "Invalid Name: Name is NULL")
+    private String password;
+
     Set<HistoryDtoWithoutClient> histories;
 }

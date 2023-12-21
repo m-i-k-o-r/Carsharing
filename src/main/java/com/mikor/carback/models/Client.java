@@ -34,6 +34,10 @@ public class Client {
             columnDefinition = "bigint")
     private Long phoneNumber;
 
+    @Column(name = "client_password", nullable = false,
+            columnDefinition = "varchar(55)")
+    private String password;
+
     @OneToMany(mappedBy = "client")
     Set<History> histories;
 }
