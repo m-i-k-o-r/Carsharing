@@ -16,4 +16,5 @@ public class ClientDtoWithoutHistory {
     private Long passportData;
     private Long cardNumber;
     private Long phoneNumber;
+    private String password;
 }
