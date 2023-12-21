@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS client
     name VARCHAR(55) NOT NULL,
     passport_data BIGINT NOT NULL UNIQUE,
     card_number BIGINT NOT NULL UNIQUE,
-    phone_number BIGINT NOT NULL UNIQUE
+    phone_number BIGINT NOT NULL UNIQUE,
+    client_password VARCHAR(55) NOT NULL
 );
 

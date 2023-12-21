@@ -5,6 +5,6 @@ CREATE TABLE IF NOT EXISTS car
     year_of_production INTEGER NOT NULL,
     number_plate VARCHAR(9) NOT NULL,
     color VARCHAR(16) NOT NULL,
-    rental_price DECIMAL(8, 2),
-    location_id BIGINT REFERENCES location(id) ON DELETE CASCADE NOT NULL
+    rental_price DECIMAL(8, 2) NOT NULL,
+    location_id BIGINT REFERENCES location(id) ON DELETE CASCADE
 );
