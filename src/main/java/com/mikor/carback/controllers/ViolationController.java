@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/violation")
 @RequiredArgsConstructor
+@RequestMapping("/violation")
+@CrossOrigin("http://localhost:5173/")
 public class ViolationController {
     private final ViolationService violationService;
 

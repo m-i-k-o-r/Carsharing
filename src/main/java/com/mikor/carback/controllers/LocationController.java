@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/location")
 @RequiredArgsConstructor
+@RequestMapping("/location")
+@CrossOrigin("http://localhost:5173/")
 public class LocationController {
     private final LocationService locationService;
 
