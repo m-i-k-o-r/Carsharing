@@ -65,6 +65,10 @@ public class ClientService {
         return ClientMapper.INSTANCE.toDto(clientRepository.findById(id).orElseThrow(() -> new NotFoundException("Client with this id not found")));
     }
 
+    public ClientDto getClientByNumber(Long number) {
+        return ClientMapper.INSTANCE.toDto(clientRepository.findByPhoneNumber(number).orElseThrow(() -> new NotFoundException("Client with this id not found")));
+    }
+
     public List<ClientDto> getAllClients() {
         return ClientMapper.INSTANCE.toDto(clientRepository.findAll());
     }

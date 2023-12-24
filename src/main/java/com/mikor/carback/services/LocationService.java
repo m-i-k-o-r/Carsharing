@@ -1,6 +1,7 @@
 package com.mikor.carback.services;
 
 import com.mikor.carback.data.dto.LocationDto;
+import com.mikor.carback.data.forms.location.LocationForm;
 import com.mikor.carback.data.mappers.LocationMapper;
 import com.mikor.carback.exceptions.NotFoundException;
 import com.mikor.carback.models.Location;
@@ -15,19 +16,19 @@ import java.util.List;
 public class LocationService {
     private final LocationRepository locationRepository;
 
-    public LocationDto createLocation(String city, double width, double height) {
+    public LocationDto createLocation(LocationForm form) {
         return LocationMapper.INSTANCE.toDto(locationRepository.save(Location.builder()
-                .city(city)
-                .width(width)
-                .height(height)
+                .city(form.getCity())
+                .width(form.getWidth())
+                .height(form.getHeight())
                 .build()));
     }
 
-    public LocationDto updateLocation(Long id, String city, double width, double height) {
+    public LocationDto updateLocation(Long id, LocationForm form) {
         Location location = locationRepository.findById(id).orElseThrow(() -> new NotFoundException("Location with this id not found"));
-        location.setCity(city);
-        location.setWidth(width);
-        location.setHeight(height);
+        location.setCity(form.getCity());
+        location.setWidth(form.getWidth());
+        location.setHeight(form.getHeight());
         location = locationRepository.save(location);
         return LocationMapper.INSTANCE.toDto(location);
     }

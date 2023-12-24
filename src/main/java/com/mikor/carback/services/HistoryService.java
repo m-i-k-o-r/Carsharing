@@ -1,6 +1,7 @@
 package com.mikor.carback.services;
 
 import com.mikor.carback.data.dto.HistoryDto;
+import com.mikor.carback.data.forms.history.CreateHistoryForm;
 import com.mikor.carback.data.mappers.HistoryMapper;
 import com.mikor.carback.exceptions.NotFoundException;
 import com.mikor.carback.models.History;
@@ -25,10 +26,10 @@ public class HistoryService {
     private final CarRepository carRepository;
     private final ViolationRepository violationRepository;
 
-    public HistoryDto startHistory(Long clientId, Long carId) {
+    public HistoryDto startHistory(CreateHistoryForm form) {
         return HistoryMapper.INSTANCE.toDto(historyRepository.save(History.builder()
-                .client(clientRepository.findById(clientId).orElseThrow(() -> new NotFoundException("Client with this id not found")))
-                .car(carRepository.findById(carId).orElseThrow(() -> new NotFoundException("Car with this id not found")))
+                .client(clientRepository.findById(form.getClientId()).orElseThrow(() -> new NotFoundException("Client with this id not found")))
+                .car(carRepository.findById(form.getCarId()).orElseThrow(() -> new NotFoundException("Car with this id not found")))
                 .startDate(LocalDateTime.now())
                 .build()));
     }

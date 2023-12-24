@@ -15,6 +15,7 @@ import com.mikor.carback.repos.LocationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -83,6 +84,24 @@ public class CarService {
 
     public List<CarDto> getAllCar() {
         return CarMapper.INSTANCE.toDto(carRepository.findAll());
+    }
+
+    public List<CarDto> getAllCarsWithEnd() {
+        List<Car> sortCars = new ArrayList<>();
+        List<Car> cars = carRepository.findAll();
+        for (Car c : cars) {
+            boolean flag = true;
+            for (History h : c.getHistories()) {
+                if (h.getEndDate() == null) {
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag) {
+                sortCars.add(c);
+            }
+        }
+        return CarMapper.INSTANCE.toDto(sortCars);
     }
 
     public void deleteCar(Long id) {

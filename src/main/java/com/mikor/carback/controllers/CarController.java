@@ -23,6 +23,11 @@ public class CarController {
         return carService.getAllCar();
     }
 
+    @GetMapping("/end")
+    public List<CarDto> getAllCarsWithEnd() {
+        return carService.getAllCarsWithEnd();
+    }
+
     @GetMapping("/{id}")
     public CarDto getCar(@PathVariable Long id) {
         return carService.getCar(id);

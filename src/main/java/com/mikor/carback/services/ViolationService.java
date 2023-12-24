@@ -1,6 +1,7 @@
 package com.mikor.carback.services;
 
 import com.mikor.carback.data.dto.ViolationDto;
+import com.mikor.carback.data.forms.violation.CreateViolationForm;
 import com.mikor.carback.data.mappers.ViolationMapper;
 import com.mikor.carback.exceptions.NotFoundException;
 import com.mikor.carback.models.Violation;
@@ -17,12 +18,12 @@ public class ViolationService {
     private final ViolationRepository violationRepository;
     private final HistoryRepository historyRepository;
 
-    public ViolationDto violationCreate(String type, String description, double price, Long historyId) {
+    public ViolationDto violationCreate(CreateViolationForm form) {
         return ViolationMapper.INSTANCE.toDto(violationRepository.save(Violation.builder()
-                .type(type)
-                .description(description)
-                .price(price)
-                .history(historyRepository.findById(historyId).orElseThrow(() -> new NotFoundException("History with this id not found")))
+                .type(form.getType())
+                .description(form.getDescription())
+                .price(form.getPrice())
+                .history(historyRepository.findById(form.getHistoryId()).orElseThrow(() -> new NotFoundException("History with this id not found")))
                 .build()));
     }
 

@@ -28,6 +28,11 @@ public class ClientController {
         return clientService.getClient(id);
     }
 
+    @GetMapping("/num/{number}")
+    public ClientDto getClientByNumber(@PathVariable Long number) {
+        return clientService.getClientByNumber(number);
+    }
+
     @PostMapping("/create")
     public ClientDto createClient(@Valid @RequestBody CreateClientForm form) {
         return clientService.createClient(form);
